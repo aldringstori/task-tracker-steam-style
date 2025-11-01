@@ -18,30 +18,21 @@ export default function Home() {
   const [mounted, setMounted] = useState(false);
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Load tasks from API
   useEffect(() => {
     setMounted(true);
-    // Load tasks from localStorage
-    const saved = localStorage.getItem('steamTaskTracker');
-    if (saved) {
-      try {
-        const data = JSON.parse(saved);
-        const loadedTasks = (data.tasks || []).map((task: Task) => ({
-          ...task,
-          isActive: false, // Stop all tasks on page load
-        }));
-        setTasks(loadedTasks);
-      } catch (error) {
-        console.error('Error loading tasks:', error);
-      }
-    }
+    fetchTasks();
   }, []);
 
-  useEffect(() => {
-    if (mounted) {
-      // Save tasks to localStorage
-      localStorage.setItem('steamTaskTracker', JSON.stringify({ tasks }));
+  const fetchTasks = async () => {
+    try {
+      const response = await fetch('/api/tasks');
+      const data = await response.json();
+      setTasks(data.tasks || []);
+    } catch (error) {
+      console.error('Error loading tasks:', error);
     }
-  }, [tasks, mounted]);
+  };
 
   // Timer effect
   useEffect(() => {
@@ -75,7 +66,7 @@ export default function Home() {
     };
   }, [tasks]);
 
-  const handleAddTask = (name: string, description: string, color: string) => {
+  const handleAddTask = async (name: string, description: string, color: string) => {
     const newTask: Task = {
       id: Date.now().toString(),
       name,
@@ -88,71 +79,56 @@ export default function Home() {
       sessions: [],
     };
 
-    setTasks([...tasks, newTask]);
-    setIsModalOpen(false);
-    setSelectedTask(newTask);
+    try {
+      const response = await fetch('/api/tasks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newTask),
+      });
+
+      if (response.ok) {
+        await fetchTasks(); // Refresh tasks from API
+        setIsModalOpen(false);
+        setSelectedTask(newTask);
+      }
+    } catch (error) {
+      console.error('Error adding task:', error);
+      alert('Failed to create task');
+    }
   };
 
-  const handlePlayTask = (task: Task) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((t) => {
-        if (t.id === task.id) {
-          if (t.isActive) {
-            // Stop task
-            const sessionDuration = Math.floor((Date.now() - (t.startTime || Date.now())) / 1000);
-            return {
-              ...t,
-              isActive: false,
-              totalTime: t.totalTime + sessionDuration,
-              lastActive: Date.now(),
-              startTime: null,
-              sessions: [
-                ...t.sessions,
-                {
-                  start: t.startTime || Date.now(),
-                  end: Date.now(),
-                  duration: sessionDuration,
-                },
-              ],
-            };
-          } else {
-            // Start task
-            return {
-              ...t,
-              isActive: true,
-              startTime: Date.now(),
-            };
-          }
-        } else if (t.isActive) {
-          // Stop other active tasks
-          const sessionDuration = Math.floor((Date.now() - (t.startTime || Date.now())) / 1000);
-          return {
-            ...t,
-            isActive: false,
-            totalTime: t.totalTime + sessionDuration,
-            lastActive: Date.now(),
-            startTime: null,
-            sessions: [
-              ...t.sessions,
-              {
-                start: t.startTime || Date.now(),
-                end: Date.now(),
-                duration: sessionDuration,
-              },
-            ],
-          };
-        }
-        return t;
-      })
-    );
+  const handlePlayTask = async (task: Task) => {
+    try {
+      if (task.isActive) {
+        // Stop task
+        const response = await fetch(`/api/tasks/${task.id}/stop`, {
+          method: 'POST',
+        });
 
-    // Update selected task
-    if (selectedTask?.id === task.id) {
-      setSelectedTask((prev) => {
-        if (!prev) return null;
+        if (response.ok) {
+          await fetchTasks(); // Refresh tasks from API
+        }
+      } else {
+        // Start task (will auto-stop other active tasks)
+        const response = await fetch(`/api/tasks/${task.id}/start`, {
+          method: 'POST',
+        });
+
+        if (response.ok) {
+          await fetchTasks(); // Refresh tasks from API
+        }
+      }
+
+      // Update selected task
+      if (selectedTask?.id === task.id) {
         const updatedTask = tasks.find((t) => t.id === task.id);
-        return updatedTask || prev;
-      });
+        if (updatedTask) {
+          setSelectedTask(updatedTask);
+        }
+      }
+    } catch (error) {
+      console.error('Error toggling task:', error);
+      alert('Failed to toggle task');
     }
   };
 
@@ -178,14 +154,23 @@ export default function Home() {
     alert('Data exported successfully!');
   };
 
-  const handleClearData = () => {
+  const handleClearData = async () => {
     if (confirm('Are you sure you want to clear ALL data? This cannot be undone!')) {
       if (confirm('This will delete all tasks and statistics. Are you absolutely sure?')) {
-        // Stop all active tasks
-        setTasks([]);
-        setSelectedTask(null);
-        localStorage.removeItem('steamTaskTracker');
-        alert('All data has been cleared.');
+        try {
+          const response = await fetch('/api/tasks/clear', {
+            method: 'POST',
+          });
+
+          if (response.ok) {
+            setTasks([]);
+            setSelectedTask(null);
+            alert('All data has been cleared.');
+          }
+        } catch (error) {
+          console.error('Error clearing data:', error);
+          alert('Failed to clear data');
+        }
       }
     }
   };

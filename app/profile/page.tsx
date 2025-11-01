@@ -11,16 +11,18 @@ export default function ProfilePage() {
 
   useEffect(() => {
     setMounted(true);
-    const saved = localStorage.getItem('steamTaskTracker');
-    if (saved) {
-      try {
-        const data = JSON.parse(saved);
-        setTasks(data.tasks || []);
-      } catch (error) {
-        console.error('Error loading tasks:', error);
-      }
-    }
+    fetchTasks();
   }, []);
+
+  const fetchTasks = async () => {
+    try {
+      const response = await fetch('/api/tasks');
+      const data = await response.json();
+      setTasks(data.tasks || []);
+    } catch (error) {
+      console.error('Error loading tasks:', error);
+    }
+  };
 
   const stats = calculateProfileStats(tasks);
   const achievements = getAchievements(stats);
