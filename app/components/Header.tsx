@@ -37,7 +37,7 @@ export default function Header({ stats, onExportData, onClearData }: HeaderProps
         <div className="header-logo">
           <Link href="/" aria-label="Task Tracker Home">
             <svg width="176" height="44" viewBox="0 0 176 44" fill="none">
-              <text x="10" y="32" fill="#fff" fontSize="28" fontWeight="700" fontFamily="Arial">
+              <text x="10" y="32" fill="#fff" fontSize="28" fontWeight="700" fontFamily="Space Grotesk, Arial">
                 TASK TRACKER
               </text>
             </svg>
@@ -45,18 +45,21 @@ export default function Header({ stats, onExportData, onClearData }: HeaderProps
         </div>
 
         {/* Main Navigation */}
-        <nav className="supernav-container" role="navigation" aria-label="Main Menu">
-          <Link href="/" className="menuitem supernav supernav-active">
+        <nav className="supernav-container font-display" role="navigation" aria-label="Main Menu">
+          <Link href="/" className="menuitem supernav supernav-active font-display">
             LIBRARY
           </Link>
-          <Link href="/community" className="menuitem supernav">
+          <Link href="/community" className="menuitem supernav font-display">
             COMMUNITY
+          </Link>
+          <Link href="/profile" className="menuitem supernav font-display">
+            PROFILE
           </Link>
 
           {/* Profile Submenu */}
           <div className="profile-menu-wrapper" ref={profileMenuRef}>
             <button
-              className="menuitem supernav username"
+              className="menuitem supernav username font-display"
               onClick={() => {
                 setShowProfileMenu(!showProfileMenu);
                 setShowAccountMenu(false);
@@ -67,19 +70,19 @@ export default function Header({ stats, onExportData, onClearData }: HeaderProps
 
             {showProfileMenu && (
               <div className="submenu-profile">
-                <Link className="submenuitem" href="/" onClick={() => setShowProfileMenu(false)}>
+                <Link className="submenuitem font-display" href="/" onClick={() => setShowProfileMenu(false)}>
                   Activity
                 </Link>
-                <Link className="submenuitem" href="/profile" onClick={() => setShowProfileMenu(false)}>
+                <Link className="submenuitem font-display" href="/profile" onClick={() => setShowProfileMenu(false)}>
                   Profile
                 </Link>
-                <Link className="submenuitem" href="/" onClick={() => setShowProfileMenu(false)}>
+                <Link className="submenuitem font-display" href="/" onClick={() => setShowProfileMenu(false)}>
                   Tasks
                 </Link>
-                <Link className="submenuitem" href="/profile" onClick={() => setShowProfileMenu(false)}>
+                <Link className="submenuitem font-display" href="/profile" onClick={() => setShowProfileMenu(false)}>
                   Achievements
                 </Link>
-                <Link className="submenuitem" href="/profile" onClick={() => setShowProfileMenu(false)}>
+                <Link className="submenuitem font-display" href="/profile" onClick={() => setShowProfileMenu(false)}>
                   Statistics
                 </Link>
               </div>
@@ -111,33 +114,33 @@ export default function Header({ stats, onExportData, onClearData }: HeaderProps
             {/* Account Pulldown */}
             <div className="account-menu-wrapper" ref={accountMenuRef}>
               <button
-                className="pulldown persona-name-text-content"
+                className="pulldown persona-name-text-content font-display"
                 onClick={() => {
                   setShowAccountMenu(!showAccountMenu);
                   setShowProfileMenu(false);
                 }}
               >
-                <span className="username-display">Task Master</span>
+                <span className="username-display font-display">Task Master</span>
               </button>
 
               {showAccountMenu && (
                 <div className="popup-block-new">
                   <div className="popup-body popup-menu">
-                    <Link className="popup-menu-item" href="/profile" onClick={() => setShowAccountMenu(false)}>
+                    <Link className="popup-menu-item font-display" href="/profile" onClick={() => setShowAccountMenu(false)}>
                       View my profile
                     </Link>
-                    <Link className="popup-menu-item" href="/settings" onClick={() => setShowAccountMenu(false)}>
-                      Account details: <span className="account-name">user@email.com</span>
+                    <Link className="popup-menu-item font-display" href="/settings" onClick={() => setShowAccountMenu(false)}>
+                      Account details: <span className="account-name font-display">user@email.com</span>
                     </Link>
-                    <Link className="popup-menu-item" href="/settings" onClick={() => setShowAccountMenu(false)}>
+                    <Link className="popup-menu-item font-display" href="/settings" onClick={() => setShowAccountMenu(false)}>
                       Preferences
                     </Link>
-                    <Link className="popup-menu-item" href="/profile" onClick={() => setShowAccountMenu(false)}>
-                      View statistics <span className="account-name">Level {stats.level}</span>
+                    <Link className="popup-menu-item font-display" href="/profile" onClick={() => setShowAccountMenu(false)}>
+                      View statistics <span className="account-name font-display">Level {stats.level}</span>
                     </Link>
                     <div className="popup-menu-separator"></div>
                     <button
-                      className="popup-menu-item"
+                      className="popup-menu-item font-display"
                       onClick={() => {
                         onExportData();
                         setShowAccountMenu(false);
@@ -146,7 +149,7 @@ export default function Header({ stats, onExportData, onClearData }: HeaderProps
                       Export data
                     </button>
                     <button
-                      className="popup-menu-item"
+                      className="popup-menu-item font-display"
                       onClick={() => {
                         onClearData();
                         setShowAccountMenu(false);

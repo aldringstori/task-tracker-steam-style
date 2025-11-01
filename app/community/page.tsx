@@ -6,7 +6,7 @@ export default function CommunityPage() {
   return (
     <div className="flex min-h-screen bg-[#1b2838]">
       {/* Sidebar Navigation */}
-      <aside className="flex w-64 flex-col bg-[#1B1D20] p-4 text-white">
+      <aside className="flex w-64 flex-col bg-[#16212d] p-4 text-white">
         <div className="flex h-full flex-col justify-between">
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3">
@@ -63,7 +63,7 @@ export default function CommunityPage() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto bg-[#1B1D20] p-8">
+      <main className="flex-1 overflow-y-auto bg-[#1b2838] p-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="mb-8">
@@ -210,7 +210,7 @@ export default function CommunityPage() {
                     { name: 'Designers United', members: '1.8K', icon: 'palette' },
                     { name: 'Productivity Hackers', members: '3.2K', icon: 'psychology' }
                   ].map((group, index) => (
-                    <div key={index} className="flex items-center gap-3 p-3 bg-[#1B1D20] rounded-lg hover:bg-[#252729] transition-colors cursor-pointer">
+                    <div key={index} className="flex items-center gap-3 p-3 bg-[#1b2838] rounded-lg hover:bg-[#252729] transition-colors cursor-pointer">
                       <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
                         <span className="material-symbols-outlined text-primary">{group.icon}</span>
                       </div>

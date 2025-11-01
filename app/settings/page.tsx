@@ -60,7 +60,7 @@ export default function SettingsPage() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-8 overflow-y-auto bg-[#1B1D20]">
+      <main className="flex-1 p-8 overflow-y-auto bg-[#1b2838]">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-white text-4xl font-bold mb-8 font-display">Settings</h1>
 
@@ -100,7 +100,7 @@ export default function SettingsPage() {
                       <label className="text-white font-medium mb-2 block">Username</label>
                       <input
                         type="text"
-                        className="w-full bg-[#1B1D20] text-white px-4 py-3 rounded-lg border border-slate-700 focus:border-primary focus:outline-none"
+                        className="w-full bg-[#1b2838] text-white px-4 py-3 rounded-lg border border-slate-700 focus:border-primary focus:outline-none"
                         defaultValue="Username"
                       />
                     </div>
@@ -109,14 +109,14 @@ export default function SettingsPage() {
                       <label className="text-white font-medium mb-2 block">Email</label>
                       <input
                         type="email"
-                        className="w-full bg-[#1B1D20] text-white px-4 py-3 rounded-lg border border-slate-700 focus:border-primary focus:outline-none"
+                        className="w-full bg-[#1b2838] text-white px-4 py-3 rounded-lg border border-slate-700 focus:border-primary focus:outline-none"
                         defaultValue="user@example.com"
                       />
                     </div>
 
                     <div>
                       <label className="text-white font-medium mb-2 block">Time Zone</label>
-                      <select className="w-full bg-[#1B1D20] text-white px-4 py-3 rounded-lg border border-slate-700 focus:border-primary focus:outline-none">
+                      <select className="w-full bg-[#1b2838] text-white px-4 py-3 rounded-lg border border-slate-700 focus:border-primary focus:outline-none">
                         <option>UTC-5 (Eastern Time)</option>
                         <option>UTC-6 (Central Time)</option>
                         <option>UTC-7 (Mountain Time)</option>
@@ -126,7 +126,7 @@ export default function SettingsPage() {
 
                     <div>
                       <label className="text-white font-medium mb-2 block">Language</label>
-                      <select className="w-full bg-[#1B1D20] text-white px-4 py-3 rounded-lg border border-slate-700 focus:border-primary focus:outline-none">
+                      <select className="w-full bg-[#1b2838] text-white px-4 py-3 rounded-lg border border-slate-700 focus:border-primary focus:outline-none">
                         <option>English</option>
                         <option>Español</option>
                         <option>Français</option>
@@ -149,7 +149,7 @@ export default function SettingsPage() {
                       {['Dark', 'Light', 'Auto'].map((theme) => (
                         <div
                           key={theme}
-                          className="bg-[#1B1D20] p-4 rounded-lg border-2 border-primary cursor-pointer hover:bg-[#252729] transition-colors"
+                          className="bg-[#1b2838] p-4 rounded-lg border-2 border-primary cursor-pointer hover:bg-[#252729] transition-colors"
                         >
                           <p className="text-white font-medium text-center">{theme}</p>
                         </div>

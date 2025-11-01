@@ -123,7 +123,7 @@ export default function HelpPage() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-8 overflow-y-auto bg-[#1B1D20]">
+      <main className="flex-1 p-8 overflow-y-auto bg-[#1b2838]">
         <div className="max-w-5xl mx-auto">
           {/* Header */}
           <div className="mb-8">

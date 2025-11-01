@@ -6,7 +6,7 @@ export default function StorePage() {
   return (
     <div className="flex min-h-screen bg-[#1b2838]">
       {/* Sidebar Navigation */}
-      <aside className="flex w-64 flex-col bg-[#1B1D20] p-4 text-white">
+      <aside className="flex w-64 flex-col bg-[#16212d] p-4 text-white">
         <div className="flex h-full flex-col justify-between">
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3">
@@ -63,7 +63,7 @@ export default function StorePage() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto bg-[#1B1D20] p-8">
+      <main className="flex-1 overflow-y-auto bg-[#1b2838] p-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="mb-8">
