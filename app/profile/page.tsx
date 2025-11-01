@@ -1,23 +1,40 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ProfileStats, Achievement } from '../types';
-import { formatTimeShort } from '../lib/utils';
+import { Task } from '../types';
+import { calculateProfileStats, getAchievements, formatTimeShort } from '../lib/utils';
 
-interface ProfileViewProps {
-  stats: ProfileStats;
-  achievements: Achievement[];
-  onNavigateToLibrary: () => void;
-}
+export default function ProfilePage() {
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [mounted, setMounted] = useState(false);
 
-export default function ProfileView({ stats, achievements, onNavigateToLibrary }: ProfileViewProps) {
+  useEffect(() => {
+    setMounted(true);
+    const saved = localStorage.getItem('steamTaskTracker');
+    if (saved) {
+      try {
+        const data = JSON.parse(saved);
+        setTasks(data.tasks || []);
+      } catch (error) {
+        console.error('Error loading tasks:', error);
+      }
+    }
+  }, []);
+
+  const stats = calculateProfileStats(tasks);
+  const achievements = getAchievements(stats);
   const unlockedAchievements = achievements.filter(a => a.unlocked);
 
+  if (!mounted) {
+    return null;
+  }
+
   return (
-    <div className="relative flex h-auto min-h-screen w-full flex-col">
+    <div className="relative flex h-auto min-h-screen w-full flex-col bg-[#1b2838]">
       <div className="flex h-full min-h-screen w-full">
         {/* SideNavBar */}
-        <aside className="flex w-64 flex-col bg-[#16212d] p-4 text-white">
+        <aside className="flex w-64 flex-col bg-[#16212d] p-4 text-white border-r border-slate-800">
           <div className="flex h-full flex-col justify-between">
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-3">
@@ -37,7 +54,10 @@ export default function ProfileView({ stats, achievements, onNavigateToLibrary }
                   <span className="material-symbols-outlined text-2xl">home</span>
                   <p className="text-sm font-medium leading-normal font-display">Home</p>
                 </Link>
-                <Link href="/store" className="flex items-center gap-3 rounded-lg px-3 py-2 text-[#A0A0A0] hover:bg-[#2A2C30] hover:text-white">
+                <Link
+                  href="/store"
+                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-[#A0A0A0] hover:bg-[#2A2C30] hover:text-white"
+                >
                   <span className="material-symbols-outlined text-2xl">storefront</span>
                   <p className="text-sm font-medium leading-normal font-display">Store</p>
                 </Link>
@@ -48,11 +68,17 @@ export default function ProfileView({ stats, achievements, onNavigateToLibrary }
                   <span className="material-symbols-outlined text-2xl">sports_esports</span>
                   <p className="text-sm font-medium leading-normal font-display">Library</p>
                 </Link>
-                <Link href="/community" className="flex items-center gap-3 rounded-lg px-3 py-2 text-[#A0A0A0] hover:bg-[#2A2C30] hover:text-white">
+                <Link
+                  href="/community"
+                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-[#A0A0A0] hover:bg-[#2A2C30] hover:text-white"
+                >
                   <span className="material-symbols-outlined text-2xl">groups</span>
                   <p className="text-sm font-medium leading-normal font-display">Community</p>
                 </Link>
-                <Link href="/profile" className="flex items-center gap-3 rounded-lg bg-primary/20 px-3 py-2 text-white">
+                <Link
+                  href="/profile"
+                  className="flex items-center gap-3 rounded-lg bg-primary/20 px-3 py-2 text-white"
+                >
                   <span className="material-symbols-outlined text-2xl">person</span>
                   <p className="text-sm font-medium leading-normal font-display">Profile</p>
                 </Link>
@@ -83,9 +109,12 @@ export default function ProfileView({ stats, achievements, onNavigateToLibrary }
                 </div>
               </div>
               <div className="flex w-full max-w-[480px] gap-3 @[480px]:w-auto">
-                <button className="flex flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#3b4754] text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-[#4a5868] font-display @[480px]:flex-auto">
+                <Link
+                  href="/settings"
+                  className="flex flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#3b4754] text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-[#4a5868] font-display @[480px]:flex-auto"
+                >
                   <span className="truncate">Edit Profile</span>
-                </button>
+                </Link>
                 <button className="flex flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 font-display @[480px]:flex-auto">
                   <span className="truncate">Add Friend</span>
                 </button>

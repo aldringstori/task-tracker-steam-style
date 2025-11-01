@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { Task } from '../types';
 import { formatTime } from '../lib/utils';
 
@@ -47,51 +48,51 @@ export default function LibraryView({
         </div>
         <nav className="flex-grow overflow-y-auto">
           <div className="flex flex-col gap-1">
-            <a className="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-primary" href="#">
+            <Link href="/" className="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-primary">
               <span className="material-symbols-outlined">gamepad</span>
               <p className="text-sm font-medium leading-normal">All Tasks</p>
-            </a>
-            <a className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:bg-primary/10" href="#">
+            </Link>
+            <Link href="/" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:bg-primary/10">
               <span className="material-symbols-outlined">schedule</span>
               <p className="text-sm font-medium leading-normal">Recently Played</p>
-            </a>
-            <a className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:bg-primary/10" href="#">
+            </Link>
+            <Link href="/" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:bg-primary/10">
               <span className="material-symbols-outlined">download_done</span>
               <p className="text-sm font-medium leading-normal">Installed</p>
-            </a>
-            <a className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:bg-primary/10" href="#">
+            </Link>
+            <Link href="/" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:bg-primary/10">
               <span className="material-symbols-outlined">favorite</span>
               <p className="text-sm font-medium leading-normal">Favorites</p>
-            </a>
+            </Link>
             <p className="text-xs text-slate-500 uppercase font-bold mt-4 mb-2 px-3">Genres</p>
-            <a className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:bg-primary/10" href="#">
+            <Link href="/" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:bg-primary/10">
               <span className="material-symbols-outlined">bolt</span>
               <p className="text-sm font-medium leading-normal">Action</p>
-            </a>
-            <a className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:bg-primary/10" href="#">
+            </Link>
+            <Link href="/" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:bg-primary/10">
               <span className="material-symbols-outlined">explore</span>
               <p className="text-sm font-medium leading-normal">Adventure</p>
-            </a>
-            <a className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:bg-primary/10" href="#">
+            </Link>
+            <Link href="/" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:bg-primary/10">
               <span className="material-symbols-outlined">swords</span>
               <p className="text-sm font-medium leading-normal">RPG</p>
-            </a>
-            <a className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:bg-primary/10" href="#">
+            </Link>
+            <Link href="/" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:bg-primary/10">
               <span className="material-symbols-outlined">castle</span>
               <p className="text-sm font-medium leading-normal">Strategy</p>
-            </a>
+            </Link>
           </div>
         </nav>
         <div className="mt-auto">
           <div className="flex flex-col gap-1">
-            <a className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:bg-primary/10" href="#">
+            <Link href="/settings" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:bg-primary/10">
               <span className="material-symbols-outlined">settings</span>
               <p className="text-sm font-medium leading-normal">Settings</p>
-            </a>
-            <a className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:bg-primary/10" href="#">
+            </Link>
+            <Link href="/help" className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:bg-primary/10">
               <span className="material-symbols-outlined">help</span>
               <p className="text-sm font-medium leading-normal">Help</p>
-            </a>
+            </Link>
           </div>
         </div>
       </aside>

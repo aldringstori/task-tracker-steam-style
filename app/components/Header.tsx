@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { ProfileStats } from '../types';
 
 interface HeaderProps {
@@ -34,23 +35,23 @@ export default function Header({ stats, onExportData, onClearData }: HeaderProps
       <div className="header-content">
         {/* Logo */}
         <div className="header-logo">
-          <a href="/" aria-label="Task Tracker Home">
+          <Link href="/" aria-label="Task Tracker Home">
             <svg width="176" height="44" viewBox="0 0 176 44" fill="none">
               <text x="10" y="32" fill="#fff" fontSize="28" fontWeight="700" fontFamily="Arial">
                 TASK TRACKER
               </text>
             </svg>
-          </a>
+          </Link>
         </div>
 
         {/* Main Navigation */}
         <nav className="supernav-container" role="navigation" aria-label="Main Menu">
-          <a href="#" className="menuitem supernav supernav-active">
+          <Link href="/" className="menuitem supernav supernav-active">
             LIBRARY
-          </a>
-          <a href="#" className="menuitem supernav">
+          </Link>
+          <Link href="/community" className="menuitem supernav">
             COMMUNITY
-          </a>
+          </Link>
 
           {/* Profile Submenu */}
           <div className="profile-menu-wrapper" ref={profileMenuRef}>
@@ -66,21 +67,21 @@ export default function Header({ stats, onExportData, onClearData }: HeaderProps
 
             {showProfileMenu && (
               <div className="submenu-profile">
-                <a className="submenuitem" href="#" onClick={() => setShowProfileMenu(false)}>
+                <Link className="submenuitem" href="/" onClick={() => setShowProfileMenu(false)}>
                   Activity
-                </a>
-                <a className="submenuitem" href="#" onClick={() => setShowProfileMenu(false)}>
+                </Link>
+                <Link className="submenuitem" href="/profile" onClick={() => setShowProfileMenu(false)}>
                   Profile
-                </a>
-                <a className="submenuitem" href="#" onClick={() => setShowProfileMenu(false)}>
+                </Link>
+                <Link className="submenuitem" href="/" onClick={() => setShowProfileMenu(false)}>
                   Tasks
-                </a>
-                <a className="submenuitem" href="#" onClick={() => setShowProfileMenu(false)}>
+                </Link>
+                <Link className="submenuitem" href="/profile" onClick={() => setShowProfileMenu(false)}>
                   Achievements
-                </a>
-                <a className="submenuitem" href="#" onClick={() => setShowProfileMenu(false)}>
+                </Link>
+                <Link className="submenuitem" href="/profile" onClick={() => setShowProfileMenu(false)}>
                   Statistics
-                </a>
+                </Link>
               </div>
             )}
           </div>
@@ -122,18 +123,18 @@ export default function Header({ stats, onExportData, onClearData }: HeaderProps
               {showAccountMenu && (
                 <div className="popup-block-new">
                   <div className="popup-body popup-menu">
-                    <a className="popup-menu-item" href="#" onClick={() => setShowAccountMenu(false)}>
+                    <Link className="popup-menu-item" href="/profile" onClick={() => setShowAccountMenu(false)}>
                       View my profile
-                    </a>
-                    <a className="popup-menu-item" href="#" onClick={() => setShowAccountMenu(false)}>
+                    </Link>
+                    <Link className="popup-menu-item" href="/settings" onClick={() => setShowAccountMenu(false)}>
                       Account details: <span className="account-name">user@email.com</span>
-                    </a>
-                    <a className="popup-menu-item" href="#" onClick={() => setShowAccountMenu(false)}>
+                    </Link>
+                    <Link className="popup-menu-item" href="/settings" onClick={() => setShowAccountMenu(false)}>
                       Preferences
-                    </a>
-                    <a className="popup-menu-item" href="#" onClick={() => setShowAccountMenu(false)}>
+                    </Link>
+                    <Link className="popup-menu-item" href="/profile" onClick={() => setShowAccountMenu(false)}>
                       View statistics <span className="account-name">Level {stats.level}</span>
-                    </a>
+                    </Link>
                     <div className="popup-menu-separator"></div>
                     <button
                       className="popup-menu-item"
@@ -159,7 +160,7 @@ export default function Header({ stats, onExportData, onClearData }: HeaderProps
             </div>
 
             {/* User Avatar */}
-            <a href="#" className="user-avatar" aria-label="View your profile">
+            <Link href="/profile" className="user-avatar" aria-label="View your profile">
               <div className="avatar-circle">
                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
                   <circle cx="20" cy="20" r="19" stroke="#66c0f4" strokeWidth="2" />
@@ -167,7 +168,7 @@ export default function Header({ stats, onExportData, onClearData }: HeaderProps
                   <path d="M10 32.5 Q20 25 30 32.5" fill="#66c0f4" />
                 </svg>
               </div>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
