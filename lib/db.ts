@@ -1,19 +1,25 @@
 import Database from 'better-sqlite3';
 import path from 'path';
+import { PHASE_PRODUCTION_BUILD } from 'next/constants';
 
-const dbPath = path.join(process.cwd(), 'data', 'tasks.db');
+const isBuild = process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD;
+const dbPath = isBuild ? ':memory:' : path.join(process.cwd(), 'data', 'tasks.db');
 
-// Ensure data directory exists
-import fs from 'fs';
-const dataDir = path.join(process.cwd(), 'data');
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir, { recursive: true });
+// Ensure data directory exists only at runtime.
+if (!isBuild) {
+  // Local import keeps the build phase light.
+  const fs = require('fs');
+  const dataDir = path.join(process.cwd(), 'data');
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true });
+  }
 }
 
-const db = new Database(dbPath);
+const db = new Database(dbPath, { timeout: 5000 });
 
 // Enable WAL mode for better concurrent access
 db.pragma('journal_mode = WAL');
+db.pragma('busy_timeout = 5000');
 
 // Initialize database schema
 db.exec(`

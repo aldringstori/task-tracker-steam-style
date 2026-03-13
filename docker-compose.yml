@@ -6,6 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: steam-task-tracker-next
+    mem_limit: 1g
     ports:
       - "3003:3003"
     environment:
